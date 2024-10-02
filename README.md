@@ -20,7 +20,7 @@ Esta aplicação foi desenvolvida utilizando **Java 21**, **Spring Boot**, e **M
 
 ### Pré-requisitos:
 - **Java 21** (ou superior)
-- **MySQL** (ou outro banco de dados compatível)
+- **MySQL** (ou outro banco de dados compatível, caso venha usar outro, troque a dependência no pom.xml)
 
 ### Banco de Dados
 Não se esqueça de criar o banco de dados no MySQL antes de executar a aplicação. Você pode usar o seguinte comando para criar o banco:
@@ -46,13 +46,14 @@ CREATE TABLE users (
 ## Executando a Aplicação
 Clone este repositório e importe o projeto em sua IDE preferida. Configure o acesso ao banco de dados no arquivo application.properties.
 Certifique-se de que o banco de dados esteja rodando e execute os scripts SQL para criar as tabelas.
-Acesse o frontend da aplicação, que pode ser encontrado neste repositório: https://github.com/euvitorti/OakTecnologiaFront.
+Acesse o frontend da aplicação, que pode ser encontrado neste repositório:
+```
+https://github.com/euvitorti/OakTecnologiaFront.
+```
 
 ## Tecnologias Utilizadas
 - Java 21
 - Spring Boot
-- MySQL
 - Spring Data JPA
-- Spring Security (para autenticação)
-
-## Caso não queira ver no front, use o Postman
+- Spring Security
+- MySQL

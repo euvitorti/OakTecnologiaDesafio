@@ -26,18 +26,18 @@ public class Security  implements WebMvcConfigurer{
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(c -> c.disable()) // Desabilita CSRF para APIs stateless
+                .cors(cors -> cors.configure(httpSecurity)) // Habilita CORS no Spring Security
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/login.html", "/signin.html", "/product.html").permitAll(); // Páginas públicas
-                    req.requestMatchers("/auth/login").permitAll(); // Permitir login sem autenticação
-                    req.requestMatchers("/users").permitAll(); // Outras rotas permitidas
-                    req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "swagger-ui/**").permitAll(); // Swagger
-                    req.anyRequest().authenticated(); // Todas as outras requisições precisam de autenticação
+                    req.requestMatchers("/login.html", "/signin.html").permitAll();
+                    req.requestMatchers("/auth/login").permitAll();
+                    req.requestMatchers("/users").permitAll();
+                    req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "swagger-ui/**").permitAll();
+                    req.anyRequest().authenticated();
                 })
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class) // Filtro JWT, por exemplo
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -53,7 +53,7 @@ public class Security  implements WebMvcConfigurer{
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
         corsRegistry.addMapping("/**") // Allow CORS for all endpoints
-                .allowedOrigins("http://127.0.0.1:5501") // Specify allowed origins
+                .allowedOrigins("http://127.0.0.1:5500") // Specify allowed origins
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Specify allowed HTTP methods
                 .allowedHeaders("*") // Allow all headers
                 .allowCredentials(true); // Allow credentials to be included in CORS requests

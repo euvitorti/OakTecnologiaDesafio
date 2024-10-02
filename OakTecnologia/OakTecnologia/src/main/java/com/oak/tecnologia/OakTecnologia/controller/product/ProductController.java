@@ -16,26 +16,28 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product")
-@SecurityRequirement(name = "bearer-key")
+//@SecurityRequirement(name = "bearer-key")
 public class ProductController {
 
     @Autowired
     private IProductRepository iProductRepository;
 
+    // Método para registrar um novo produto
     @PostMapping
     @Transactional
-    public ResponseEntity register(@RequestBody @Valid ProductDTO productDTO, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity register(@RequestBody @Valid ProductDTO productDTO, UriComponentsBuilder uriComponentsBuilder) {
         var product = new Product(productDTO);
         iProductRepository.save(product);
 
         var uri = uriComponentsBuilder.path("/product/{id}").buildAndExpand(product.getId()).toUri();
 
-        return ResponseEntity.ok(uri);
+        return ResponseEntity.created(uri).build(); // Retorna o status 201 Created
     }
 
+    // Método para listar produtos
     @GetMapping
     public ResponseEntity<List<Product>> listProduct(Pageable pageable) {
-        var page = iProductRepository.findAll();
-        return ResponseEntity.ok(page);
+        var page = iProductRepository.findAll(pageable); // Use pageable para paginar os resultados
+        return ResponseEntity.ok(page.getContent()); // Retorna apenas o conteúdo da página
     }
 }

@@ -54,7 +54,7 @@ CREATE TABLE users (
 
 Acesse o frontend da aplicação, que pode ser encontrado neste repositório:
 ```
-https://github.com/euvitorti/OakTecnologiaFront.
+https://github.com/euvitorti/OakTecnologiaFront
 ```
 
 ## Configuração do CORS

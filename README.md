@@ -22,9 +22,19 @@ Esta aplicação foi desenvolvida utilizando **Java 21**, **Spring Boot**, e **M
 - **Java 21** (ou superior)
 - **MySQL** (ou outro banco de dados compatível, caso venha usar outro, troque a dependência no pom.xml)
 
-### Banco de Dados
-Não se esqueça de criar o banco de dados no MySQL antes de executar a aplicação. Você pode usar o seguinte comando para criar o banco:
+## Executando a Aplicação
+Clone este repositório e importe o projeto em sua IDE preferida.
 
+- Abra src/main/resources/application.properties.
+- Atualize a configuração do banco de dados com suas credenciais:
+```
+spring.datasource.url=jdbc:mysql://localhost/seu_banco_de_dados
+spring.datasource.username=seu_usuario
+spring.datasource.password=sua_senha
+spring.jpa.hibernate.ddl-auto=update
+```
+
+Certifique-se de que o banco de dados esteja rodando e execute os scripts SQL para criar as tabelas:
 ```
   CREATE DATABASE nome_do_banco;
 
@@ -43,13 +53,31 @@ CREATE TABLE users (
 );
 ```
 
-## Executando a Aplicação
-Clone este repositório e importe o projeto em sua IDE preferida. Configure o acesso ao banco de dados no arquivo application.properties.
-Certifique-se de que o banco de dados esteja rodando e execute os scripts SQL para criar as tabelas.
 Acesse o frontend da aplicação, que pode ser encontrado neste repositório:
 ```
 https://github.com/euvitorti/OakTecnologiaFront.
 ```
+
+## Configuração do CORS
+Acesse a classe Security e localize o método responsável pela configuração do CORS. Atualize a linha de código que define a URL permitida com a URL onde o front-end está rodando (seja em ambiente de desenvolvimento ou produção).
+
+Exemplo de configuração de CORS em uma classe de configuração Java:
+```
+    @Override
+    public void addCorsMappings(CorsRegistry corsRegistry) {
+        corsRegistry.addMapping("/**") // Allow CORS for all endpoints
+                .allowedOrigins("http://127.0.0.1:5500") // Specify allowed origins
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Specify allowed HTTP methods
+                .allowedHeaders("*") // Allow all headers
+                .allowCredentials(true); // Allow credentials to be included in CORS requests
+    }
+```
+Substitua "http://127.0.0.1:5500" pela URL correta onde o front-end está rodando, por exemplo:
+
+Desenvolvimento local: http://127.0.0.1:5501
+Produção: A URL do seu servidor de produção.
+
+Isso vai garantir que o front-end consiga acessar a API corretamente!
 
 ## Tecnologias Utilizadas
 - Java 21

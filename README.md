@@ -31,7 +31,6 @@ Clone este repositório e importe o projeto em sua IDE preferida.
 spring.datasource.url=jdbc:mysql://localhost/seu_banco_de_dados
 spring.datasource.username=seu_usuario
 spring.datasource.password=sua_senha
-spring.jpa.hibernate.ddl-auto=update
 ```
 
 Certifique-se de que o banco de dados esteja rodando e execute os scripts SQL para criar as tabelas:
